@@ -4,6 +4,16 @@
 	{
 		"type": "Feature",
 		"properties": {
+			"name": "Skyhaven School",
+			"distance": "~0.5 miles"
+		},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-84.344338,33.725078]
+		}
+	},{
+		"type": "Feature",
+		"properties": {
 			"name": "DeKalb Memorial Park",
 			"distance": "~0.9 miles"
 		},
