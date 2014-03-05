@@ -17,12 +17,16 @@
   #map {
     height: 500px;
   }
+
+  #distances {
+    text-align: left;
+  }
   </style>
 </head>
 <body>
 
 <h1>Atlanta Hikes</h1>
-<div id="map"></div>
+<div id="map"></div><div id="distances"></div>
 <div id="links">
   Map icons provided by <a href="http://mapicons.nicolasmollet.com/">Nicolas Mollet</a>.<br>
 </div>
@@ -47,6 +51,29 @@
     return R * c; // distance in km
   }
 
+  // make array at beginning of function
+  var distances = [];
+  // returns distances to all parks in km:
+  function getAllDistances(obj, userLat, userLon) {
+    // loop
+    for (var i in obj.features) {
+      parkName = obj.features[i].properties.name;
+      parkLat = obj.features[i].geometry.coordinates[1];
+      parkLon = obj.features[i].geometry.coordinates[0];
+      distance = getDistance(parkLat, parkLon, userLat, userLon);
+      distances.push([parkName, distance]);
+    }
+    // return array
+    return distances;
+  }
+
+  function formatDistances(arr) {
+    for (var i in arr) {
+      dist = "<tr><td width=200>" + arr[i][1] + "</td><td width=50>km to</td><td>" + arr[i][0] + "</td></tr><br>";
+      $('#distances').append(dist);
+    }
+  }
+
   var hikingIcon = L.icon({
     iconUrl: 'hiking.png',
     iconSize: [32, 37],
@@ -69,7 +96,7 @@
         var marker = L.marker([e.latitude, e.longitude], {icon: hereIcon})
         .bindPopup('You are here');
         map.addLayer(marker);
-        // console.log(getDistance(33.75, -84.38, e.latitude, e.longitude) + ' km'); // substitute first pair with location of a point
+        formatDistances(getAllDistances(parksList, e.latitude, e.longitude));
     })
     .on('locationerror', function(e){
         console.log(e);
@@ -85,13 +112,6 @@
     layer.bindPopup("<a href=" + makeLink(feature.geometry.coordinates) + ">" + feature.properties.name + "</a><br>Length of hike: " + feature.properties.distance);
     // console.log(getDistance(feature.geometry.coordinates[1],feature.geometry.coordinates[0], 33.75, -84.38) + ' km'); // substitute second pair with current location
   };
-
-  // var photos = L.geoJson(photoList, {
-  //   onEachFeature: onPhoto,
-  //   pointToLayer: function(feature, latlng) {
-  //     return L.marker(latlng, {icon: photoIcon});
-  //   }
-  // });
 
   var hikeLayer = L.geoJson(parksList, {
     onEachFeature: onEachHike,
