@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head profile="http://www.w3.org/2005/10/profile">
+  <title>Atlanta Hikes</title>
+  <link rel="icon" 
+    type="image/png" 
+    href="http://mollietaylor.com/favicon.png">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+  <!--[if lte IE 8]>
+      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+  <![endif]-->
+  <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://mollietaylor.com/files/leaflet.ajax.js"></script>
+  <style type="text/css">
+  #map {
+    height: 500px;
+  }
+  </style>
+</head>
+<body>
+
+<h1>Atlanta Hikes</h1>
+<div id="map"></div>
+<div id="links">
+  Map icons provided by <a href="http://mapicons.nicolasmollet.com/">Nicolas Mollet</a>.<br>
+</div>
+
+<script type="text/javascript">
+  // distance formula:
+/** Converts numeric degrees to radians */
+  if (typeof Number.prototype.toRad == 'undefined') {
+    Number.prototype.toRad = function() {
+      return this * Math.PI / 180;
+    }
+  }
+
+  function getDistance(lat1, lon1, lat2, lon2) {
+    var R = 6371; // km
+    var dLat = (lat2 - lat1).toRad();
+    var dLon = (lon2 - lon1).toRad();
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c; // distance in km
+  }
+
+  var hikingIcon = L.icon({
+    iconUrl: 'hiking.png',
+    iconSize: [32, 37],
+    iconAnchor: [16, 37],
+    popupAnchor: [0, -37]
+  });
+
+  var hereIcon = L.icon({
+    iconUrl: 'youarehere-2.png',
+    iconSize: [32, 37],
+    iconAnchor: [16, 37],
+    popupAnchor: [0, -37]
+  });
+
+  var map = L.map('map').setView([33.75, -84.38], 10);
+
+
+  map.locate({setView: true, watch: true}) /* This will return map so you can do chaining */
+    .on('locationfound', function(e){
+        var marker = L.marker([e.latitude, e.longitude], {icon: hereIcon})
+        .bindPopup('You are here');
+        map.addLayer(marker);
+        // console.log(getDistance(33.75, -84.38, e.latitude, e.longitude) + ' km'); // substitute first pair with location of a point
+    })
+    .on('locationerror', function(e){
+        console.log(e);
+        alert("Location access denied.");
+    });
+
+  function makeLink(coords) {
+    var linkAddress = 'http://mollietaylor.com/skills/js/leaflet/parks/trails.html' + '?' + coords;
+    return linkAddress;
+  };
+
+  function onEachHike(feature, layer) {
+    layer.bindPopup("<a href=" + makeLink(feature.geometry.coordinates) + ">" + feature.properties.name + "</a><br>Length of hike: " + feature.properties.distance);
+    // console.log(getDistance(feature.geometry.coordinates[1],feature.geometry.coordinates[0], 33.75, -84.38) + ' km'); // substitute second pair with current location
+  };
+
+  var hikeLayer = new L.GeoJSON.AJAX("parks.geojson", {
+    onEachFeature: onEachHike,
+    pointToLayer: function(feature, latlng) {
+      return L.marker(latlng, {icon: hikingIcon});
+    }
+  }).addTo(map);
+
+  // or tiles #7:
+  L.tileLayer('http://tile.cloudmade.com/d2268fb4d6a84b33b508fa5640063baf/997/256/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+    maxZoom: 13
+  }).addTo(map);
+</script>
+
+
+
+</body>
+</html>
