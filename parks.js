@@ -1,6 +1,17 @@
-{
+parksList = {
 	"type": "FeatureCollection",
 	"features": [
+	// {
+	// 	"type": "Feature",
+	// 	"properties": {
+	// 		"name": "",
+	// 		"distance": ""
+	// 	},
+	// 	"geometry": {
+	// 		"type": "Point",
+	// 		"coordinates": []
+	// 	}
+	// },
 	{
 		"type": "Feature",
 		"properties": {
@@ -418,7 +429,7 @@
 			"distance": "~1 mile"
 		},
 		"geometry": {
-			"type": "LineString",
+			"type": "Point",
 			"coordinates": [-84.351619,33.802711]
 		}
 	},{

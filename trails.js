@@ -1,4 +1,4 @@
-{
+trails = {
 	"type": "FeatureCollection",
 	"features": [
 	{

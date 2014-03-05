@@ -12,7 +12,7 @@
   <![endif]-->
   <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script type="text/javascript" src="http://mollietaylor.com/files/leaflet.ajax.js"></script>
+  <script src="parks.js"></script>
   <style type="text/css">
   #map {
     height: 500px;
@@ -86,7 +86,14 @@
     // console.log(getDistance(feature.geometry.coordinates[1],feature.geometry.coordinates[0], 33.75, -84.38) + ' km'); // substitute second pair with current location
   };
 
-  var hikeLayer = new L.GeoJSON.AJAX("parks.geojson", {
+  // var photos = L.geoJson(photoList, {
+  //   onEachFeature: onPhoto,
+  //   pointToLayer: function(feature, latlng) {
+  //     return L.marker(latlng, {icon: photoIcon});
+  //   }
+  // });
+
+  var hikeLayer = L.geoJson(parksList, {
     onEachFeature: onEachHike,
     pointToLayer: function(feature, latlng) {
       return L.marker(latlng, {icon: hikingIcon});
