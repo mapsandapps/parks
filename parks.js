@@ -15,6 +15,26 @@ parksList = {
 	{
 		"type": "Feature",
 		"properties": {
+			"name": "Emory Railroad",
+			"distance": "~1 mile"
+		},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-84.333976,33.803239]
+		}
+	},{
+		"type": "Feature",
+		"properties": {
+			"name": "Confluence",
+			"distance": "~1 mile"
+		},
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-84.360304,33.814640]
+		}
+	},{
+		"type": "Feature",
+		"properties": {
 			"name": "Skyhaven School",
 			"distance": "~0.5 miles"
 		},
@@ -441,16 +461,6 @@ parksList = {
 		"geometry": {
 			"type": "Point",
 			"coordinates": [-84.303865,33.786054]
-		}
-	},{
-		"type": "Feature",
-		"properties": {
-			"name": "Zonolite Park",
-			"distance": "~1.5 miles"
-		},
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-84.342066,33.805646]
 		}
 	},{
 		"type": "Feature",

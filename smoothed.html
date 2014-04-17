@@ -13,10 +13,10 @@
   <![endif]-->
   <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script type="text/javascript" src="trails.js"></script>
+  <script type="text/javascript" src="smoothed.js"></script>
   <style type="text/css">
   #map {
-    height: 500px;
+    height: 600px;
   }
   </style>
 </head>
@@ -66,7 +66,7 @@
     layer.bindPopup(feature.properties.name + "<br>Length of hike: " + feature.properties.distance);
   };
 
-  var hikeLayer = L.geoJson(trails, {
+  var hikeLayer = L.geoJson(smoothed, {
     onEachFeature: onEachHike,
     style: {color: '#3498db',
       opacity: 1},
