@@ -5,7 +5,7 @@
   <title>Atlanta Hikes</title>
   <link rel="icon" 
     type="image/png" 
-    href="http://mollietaylor.com/favicon.png">
+    href="http://proximityviz.com/favicon.png">
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
   <!--[if lte IE 8]>
       <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
@@ -35,6 +35,7 @@
     white-space:nowrap;
   }
   </style>
+    <script type="text/javascript" src="http://proximityviz.com/files/analytics.js"></script>
 </head>
 <body>
 
@@ -77,7 +78,7 @@
     });
 
   function makeLink(coords) {
-    var linkAddress = 'http://mollietaylor.com/skills/js/leaflet/parks/trails.html' + '?' + coords;
+    var linkAddress = 'http://proximityviz.com/skills/js/leaflet/parks/trails.html' + '?' + coords;
     return linkAddress;
   };
 
@@ -92,12 +93,12 @@
     }
   }).addTo(map);
 
-  // or tiles #7:
-  L.tileLayer('http://tile.cloudmade.com/d2268fb4d6a84b33b508fa5640063baf/997/256/{z}/{x}/{y}.png', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-    maxZoom: 13
+  L.tileLayer('http://otile4.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+    attribution: '<a href="http://proximityviz.com/">Proximity Viz</a> | <a href="http://thigpendesigns.com">Map markers by Thigpen Designs</a> | Tiles &copy; <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" />',
+    maxZoom: 18
   }).addTo(map);
 </script>
+
 
 
 
